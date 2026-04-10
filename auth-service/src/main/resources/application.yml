@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: auth-service
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/hrms_auth?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+keycloak:
+  server-url: http://localhost:8080
+  realm: hrms
+  client-id: hrms-app
+  client-secret: your-client-secret
+  admin-username: admin
+  admin-password: admin
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

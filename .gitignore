@@ -1,0 +1,133 @@
+# IDE Configuration
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.DS_Store
+
+# Build & Dependencies
+target/
+.m2/
+node_modules/
+dist/
+build/
+out/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.gradle/
+
+# Java & Spring Boot
+*.class
+*.jar
+*.war
+*.ear
+!**/target/*.jar
+hs_err_pid*.log
+.venv/
+/.launch
+spring-shell.log
+
+# Database
+*.db
+*.sqlite
+dump.sql
+*.sql.bak
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p8
+secrets.yml
+application-secret.yml
+
+# Logs
+logs/
+*.log
+logs.txt
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE Lock Files
+.lock
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+mvn-wrapper.properties
+
+# Gradle (optional if using)
+.gradle/
+/build/
+
+# JetBrains (IntelliJ)
+.idea/**
+*.iml
+*.iws
+
+# Visual Studio Code
+.vscode/**
+
+# Package Managers
+package-lock.json
+yarn.lock
+pom.xml.lock
+
+# Database Backups
+database-backup/
+*.backup
+*.bak
+
+# Performance/Profile
+*.jfr
+*.profile
+*.hprof
+perf.data
+
+# Documentation (keep public, ignore local builds)
+site/
+docs/
+!README.md
+!project-documentation/**
+
+# OS-specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Kubernetes Secrets (never commit!)
+kubernetes/**/secrets.yml
+kubernetes/**/secret.yaml
+kubeconfig
+
+# Local Kubernetes
+minikube/
+k3s/
