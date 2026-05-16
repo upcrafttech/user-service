@@ -1,7 +1,6 @@
 package com.upcraft.client;
 
 import com.upcraft.dto.UserDTO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,13 +13,14 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class UserServiceClient extends BaseServiceClient {
-
-    private final RestTemplate restTemplate;
 
     @Value("${service.user.url:http://user-service:8082}")
     private String userServiceUrl;
+
+    public UserServiceClient(RestTemplate restTemplate) {
+        super(restTemplate);
+    }
 
     public UserDTO getUserById(UUID userId, String authToken) {
         log.info("Fetching user with ID: {}", userId);

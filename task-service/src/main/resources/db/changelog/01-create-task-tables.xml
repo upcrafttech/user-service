@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="01-create-task-table" author="codex">
+        <createTable tableName="task">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assignee_id" type="VARCHAR(36)"/>
+            <column name="created_by" type="VARCHAR(36)"/>
+            <column name="due_date" type="DATE"/>
+            <column name="approved_by" type="VARCHAR(36)"/>
+            <column name="bonus_amount" type="BIGINT"/>
+            <column name="completed_at" type="DATETIME"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME"/>
+        </createTable>
+
+        <createIndex tableName="task" indexName="idx_task_tenant_id">
+            <column name="tenant_id"/>
+        </createIndex>
+
+        <createIndex tableName="task" indexName="idx_task_status">
+            <column name="status"/>
+        </createIndex>
+
+        <createIndex tableName="task" indexName="idx_task_assignee_id">
+            <column name="assignee_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="02-create-subtask-table" author="codex">
+        <createTable tableName="subtask">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="task_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assignee_id" type="VARCHAR(36)"/>
+            <column name="due_date" type="DATE"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="subtask"
+                baseColumnNames="task_id"
+                constraintName="fk_subtask_task"
+                referencedTableName="task"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="subtask" indexName="idx_subtask_task_id">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="03-create-time-log-table" author="codex">
+        <createTable tableName="time_log">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="task_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hours" type="DECIMAL(6,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="time_log"
+                baseColumnNames="task_id"
+                constraintName="fk_time_log_task"
+                referencedTableName="task"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="time_log" indexName="idx_time_log_task_id">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="04-create-attachment-table" author="codex">
+        <createTable tableName="attachment">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="task_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_path" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uploaded_by" type="VARCHAR(36)"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="attachment"
+                baseColumnNames="task_id"
+                constraintName="fk_attachment_task"
+                referencedTableName="task"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="attachment" indexName="idx_attachment_task_id">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="05-create-task-comment-table" author="codex">
+        <createTable tableName="task_comment">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="task_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="commented_by" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="VARCHAR(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="task_comment"
+                baseColumnNames="task_id"
+                constraintName="fk_task_comment_task"
+                referencedTableName="task"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="task_comment" indexName="idx_task_comment_task_id">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="06-create-task-audit-table" author="codex">
+        <createTable tableName="task_audit">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="task_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="performed_by" type="VARCHAR(36)"/>
+            <column name="details" type="VARCHAR(2000)"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="task_audit"
+                baseColumnNames="task_id"
+                constraintName="fk_task_audit_task"
+                referencedTableName="task"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="task_audit" indexName="idx_task_audit_task_id">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="07-add-recurrence-columns-to-task" author="codex">
+        <addColumn tableName="task">
+            <column name="recurrence_type" type="VARCHAR(20)" defaultValue="NONE">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="task">
+            <column name="recurrence_interval_days" type="INT"/>
+        </addColumn>
+        <addColumn tableName="task">
+            <column name="template_id" type="VARCHAR(36)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="08-create-task-template-table" author="codex">
+        <createTable tableName="task_template">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="priority" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_assignee_id" type="VARCHAR(36)"/>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="task_template" indexName="idx_task_template_tenant_id">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

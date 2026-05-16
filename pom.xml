@@ -26,6 +26,7 @@
         <springdoc-openapi.version>2.0.4</springdoc-openapi.version>
         <liquibase.version>4.20.0</liquibase.version>
         <keycloak.version>21.0.0</keycloak.version>
+        <lombok.version>1.18.38</lombok.version>
     </properties>
 
     <modules>
@@ -41,6 +42,18 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Internal modules (keep versions consistent across all services) -->
+            <dependency>
+                <groupId>com.upcraft</groupId>
+                <artifactId>common-dto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.upcraft</groupId>
+                <artifactId>keycloak-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -62,6 +75,11 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -92,19 +110,25 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--
+                  Manage Spring Boot plugin config centrally, but don't apply it to every module.
+                  Library modules (e.g. common-dto, keycloak-provider) shouldn't be repackaged as boot apps.
+                -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +29,18 @@ public class PayslipDTO {
 
     @Schema(description = "Net Pay in cents")
     private Long netPay;
+
+    @Schema(description = "TDS deduction in cents")
+    private Long tds;
+
+    @Schema(description = "PF deduction in cents")
+    private Long pf;
+
+    @Schema(description = "ESI deduction in cents")
+    private Long esi;
+
+    @Schema(description = "Professional tax deduction in cents")
+    private Long professionalTax;
 
     @Schema(description = "Creation timestamp")
     private LocalDateTime createdAt;

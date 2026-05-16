@@ -2,7 +2,6 @@ package com.upcraft.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,13 +12,14 @@ import org.springframework.web.client.RestTemplate;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class NotificationServiceClient extends BaseServiceClient {
-
-    private final RestTemplate restTemplate;
 
     @Value("${service.notification.url:http://notification-service:8086}")
     private String notificationServiceUrl;
+
+    public NotificationServiceClient(RestTemplate restTemplate) {
+        super(restTemplate);
+    }
 
     @Data
     @AllArgsConstructor

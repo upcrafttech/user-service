@@ -1,7 +1,6 @@
 package com.upcraft.client;
 
 import com.upcraft.dto.TaskDTO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,13 +13,14 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class TaskServiceClient extends BaseServiceClient {
-
-    private final RestTemplate restTemplate;
 
     @Value("${service.task.url:http://task-service:8084}")
     private String taskServiceUrl;
+
+    public TaskServiceClient(RestTemplate restTemplate) {
+        super(restTemplate);
+    }
 
     public TaskDTO getTaskById(UUID taskId, String authToken) {
         log.info("Fetching task with ID: {}", taskId);

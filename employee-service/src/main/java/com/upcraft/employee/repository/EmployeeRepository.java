@@ -19,4 +19,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
     Optional<Employee> findByTenantIdAndEmail(UUID tenantId, String email);
 
     List<Employee> findByTenantId(UUID tenantId);
+
+    List<Employee> findByTenantIdAndIdIn(UUID tenantId, List<UUID> ids);
+    List<Employee> findByTenantIdAndManagerId(UUID tenantId, UUID managerId);
+
+    @org.springframework.data.jpa.repository.Query("SELECT e FROM Employee e WHERE e.tenantId = :tenantId " +
+            "AND (:dept IS NULL OR e.department = :dept) " +
+            "AND (:status IS NULL OR e.status = :status) " +
+            "AND (:joinedAfter IS NULL OR e.joinDate >= :joinedAfter)")
+    Page<Employee> findWithFilters(UUID tenantId, String dept, String status, java.time.LocalDate joinedAfter, Pageable pageable);
+
+    Optional<Employee> findByTenantIdAndUserId(UUID tenantId, UUID userId);
 }

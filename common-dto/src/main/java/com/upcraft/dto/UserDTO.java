@@ -30,6 +30,21 @@ public class UserDTO {
     @Schema(description = "User Role", example = "ROLE_MANAGER")
     private String role;
 
+    @Schema(description = "Active flag")
+    private Boolean isActive;
+
+    @Schema(description = "Deactivation timestamp")
+    private LocalDateTime deactivatedAt;
+
+    @Schema(description = "Deactivated by user id")
+    private UUID deactivatedBy;
+
+    @Schema(description = "Last sync timestamp with identity provider")
+    private LocalDateTime lastSyncedAt;
+
     @Schema(description = "Creation timestamp")
     private LocalDateTime createdAt;
+
+    @Schema(description = "Update timestamp")
+    private LocalDateTime updatedAt;
 }

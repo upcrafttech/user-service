@@ -115,4 +115,18 @@ public class KeycloakAdminService {
             log.error("Error deleting user: {}", userId, e);
         }
     }
+
+    public void setUserEnabled(String userId, boolean enabled) {
+        try {
+            UserRepresentation userRepresentation = keycloakAdmin.realm(keycloakConfig.getRealm())
+                    .users()
+                    .get(userId)
+                    .toRepresentation();
+            userRepresentation.setEnabled(enabled);
+            keycloakAdmin.realm(keycloakConfig.getRealm()).users().get(userId).update(userRepresentation);
+            log.info("Updated user enabled status: userId={}, enabled={}", userId, enabled);
+        } catch (Exception e) {
+            log.error("Error updating enabled status for user: {}", userId, e);
+        }
+    }
 }

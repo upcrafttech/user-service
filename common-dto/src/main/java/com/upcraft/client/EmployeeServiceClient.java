@@ -1,7 +1,6 @@
 package com.upcraft.client;
 
 import com.upcraft.dto.EmployeeDTO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,13 +13,14 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class EmployeeServiceClient extends BaseServiceClient {
-
-    private final RestTemplate restTemplate;
 
     @Value("${service.employee.url:http://employee-service:8083}")
     private String employeeServiceUrl;
+
+    public EmployeeServiceClient(RestTemplate restTemplate) {
+        super(restTemplate);
+    }
 
     public EmployeeDTO getEmployeeById(UUID employeeId, String authToken) {
         log.info("Fetching employee with ID: {}", employeeId);

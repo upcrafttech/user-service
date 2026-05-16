@@ -131,3 +131,6 @@ kubeconfig
 # Local Kubernetes
 minikube/
 k3s/
+.m2-local/
+.m2-repo/
+.m2-repo2/

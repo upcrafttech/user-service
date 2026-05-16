@@ -7,5 +7,7 @@
 
     <include file="db/changelog/01-create-tenant-table.xml"/>
     <include file="db/changelog/02-create-user-table.xml"/>
+    <include file="db/changelog/03-user-lifecycle-and-audit.xml"/>
+    <include file="db/changelog/04-user-sync-outbox.xml"/>
 
 </databaseChangeLog>

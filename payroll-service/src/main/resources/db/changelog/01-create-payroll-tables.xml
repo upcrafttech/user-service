@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="payroll-001-create-salary-structure" author="codex">
+        <createTable tableName="salary_structure">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="basic_pay" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hra" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="other_allowances" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="salary_structure" indexName="idx_salary_structure_tenant">
+            <column name="tenant_id"/>
+        </createIndex>
+        <createIndex tableName="salary_structure" indexName="idx_salary_structure_tenant_employee">
+            <column name="tenant_id"/>
+            <column name="employee_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="payroll-002-create-payroll-run" author="codex">
+        <createTable tableName="payroll_run">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period_start" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period_end" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="payroll_run" indexName="idx_payroll_run_tenant">
+            <column name="tenant_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="payroll-003-create-payslip" author="codex">
+        <createTable tableName="payslip">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="payroll_run_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tenant_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gross_pay" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tds" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pf" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="esi" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="professional_tax" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="net_pay" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="payslip" indexName="idx_payslip_payroll_run">
+            <column name="payroll_run_id"/>
+        </createIndex>
+        <createIndex tableName="payslip" indexName="idx_payslip_tenant_employee">
+            <column name="tenant_id"/>
+            <column name="employee_id"/>
+        </createIndex>
+        <addForeignKeyConstraint
+                baseTableName="payslip"
+                baseColumnNames="payroll_run_id"
+                constraintName="fk_payslip_payroll_run"
+                referencedTableName="payroll_run"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>
+

@@ -54,4 +54,16 @@ public class TaskDTO {
 
     @Schema(description = "Creation timestamp")
     private LocalDateTime createdAt;
+
+    @Schema(description = "Recurrence type", example = "WEEKLY")
+    private String recurrenceType;
+
+    @Schema(description = "Recurrence interval in days for recurring task", example = "7")
+    private Integer recurrenceIntervalDays;
+
+    @Schema(description = "Task template reference id")
+    private UUID templateId;
+
+    @Schema(description = "Project reference id")
+    private UUID projectId;
 }

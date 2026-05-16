@@ -2,14 +2,14 @@
 
 **Complete list of all project features with current status**
 
----
+> Latest code-backed source of truth: `project-documentation/13-CURRENT-IMPLEMENTATION-STATUS.md` (audited 2026-05-07).`r`n> This file is a roadmap tracker and may lag implementation.`r`n`r`n---
 
 ## 📊 OVERALL STATUS
 
 **Total Features**: 185
-**Completed**: 97 (52%)
-**In Progress**: 60 (32%)
-**Pending**: 28 (16%)
+**Completed**: 108 (58%)
+**In Progress**: 55 (30%)
+**Pending**: 22 (12%)
 
 ---
 
@@ -46,15 +46,15 @@
 | 2.6 | RestTemplate config | ✅ Complete | High |
 | 2.7 | API response wrapper | ✅ Complete | High |
 | 2.8 | Validation framework | ✅ Complete | High |
-| 2.9 | Logging utility | 🔄 In Progress | Medium |
+| 2.9 | Logging utility | ✅ Complete | Medium |
 | 2.10 | JWT validation middleware | ⏳ Pending | Critical |
 | 2.11 | Cache utility | ⏳ Pending | Medium |
-| 2.12 | Event framework | ⏳ Pending | High |
+| 2.12 | Event framework | ✅ Complete | High |
 | 2.13 | Mapper utility | ⏳ Pending | Medium |
 | 2.14 | Test utility | ⏳ Pending | Medium |
 | 2.15 | Configuration loader | ⏳ Pending | Low |
 
-**Status**: 67% Complete (10/15)
+**Status**: 80% Complete (12/15)
 
 ---
 
@@ -94,20 +94,20 @@
 | 4.6 | POST /employees | ✅ Complete | Critical |
 | 4.7 | PUT /employees/{id} | ✅ Complete | Critical |
 | 4.8 | DELETE /employees/{id} | ✅ Complete | Critical |
-| 4.9 | Attendance entity | ⏳ Pending | Critical |
-| 4.10 | Attendance repository | ⏳ Pending | Critical |
-| 4.11 | Attendance service | ⏳ Pending | Critical |
-| 4.12 | Punch in/out endpoint | ⏳ Pending | Critical |
-| 4.13 | Leave request entity | ⏳ Pending | Critical |
-| 4.14 | Leave request repository | ⏳ Pending | Critical |
-| 4.15 | Leave request service | ⏳ Pending | Critical |
-| 4.16 | Leave approval workflow | ⏳ Pending | High |
+| 4.9 | Attendance entity | ✅ Complete | Critical |
+| 4.10 | Attendance repository | ✅ Complete | Critical |
+| 4.11 | Attendance service | ✅ Complete | Critical |
+| 4.12 | Punch in/out endpoint | ✅ Complete | Critical |
+| 4.13 | Leave request entity | ✅ Complete | Critical |
+| 4.14 | Leave request repository | ✅ Complete | Critical |
+| 4.15 | Leave request service | ✅ Complete | Critical |
+| 4.16 | Leave approval workflow | ✅ Complete | High |
 | 4.17 | Attendance reports | ⏳ Pending | Medium |
 | 4.18 | Leave balance tracking | ⏳ Pending | Medium |
 | 4.19 | Department management | ⏳ Pending | Medium |
 | 4.20 | Employee hierarchy | ⏳ Pending | Low |
 
-**Status**: 55% Complete (11/20)
+**Status**: 80% Complete (16/20)
 
 ---
 
@@ -178,23 +178,23 @@
 
 | # | Feature | Status | Priority |
 |---|---------|--------|----------|
-| 7.1 | Email service | ⏳ Pending | Critical |
-| 7.2 | SMS service | ⏳ Pending | High |
-| 7.3 | WhatsApp service | ⏳ Pending | High |
-| 7.4 | NotificationTemplate entity | ⏳ Pending | High |
-| 7.5 | NotificationLog entity | ⏳ Pending | Medium |
-| 7.6 | SMTP configuration | ⏳ Pending | Critical |
-| 7.7 | Twilio integration | ⏳ Pending | High |
-| 7.8 | Email templates | ⏳ Pending | High |
-| 7.9 | SMS templates | ⏳ Pending | High |
-| 7.10 | Event-driven notifications | ⏳ Pending | Critical |
-| 7.11 | Notification scheduling | ⏳ Pending | Medium |
-| 7.12 | Retry mechanism | ⏳ Pending | Medium |
-| 7.13 | Delivery status tracking | ⏳ Pending | Low |
-| 7.14 | Notification preferences | ⏳ Pending | Medium |
+| 7.1 | Email service | ✅ Complete | Critical |
+| 7.2 | SMS service | ✅ Complete | High |
+| 7.3 | WhatsApp service | ✅ Complete | High |
+| 7.4 | NotificationTemplate entity | ✅ Complete | High |
+| 7.5 | NotificationLog entity | ✅ Complete | Medium |
+| 7.6 | SMTP configuration | ✅ Complete | Critical |
+| 7.7 | Twilio integration | ✅ Complete | High |
+| 7.8 | Email templates | ✅ Complete | High |
+| 7.9 | SMS templates | ✅ Complete | High |
+| 7.10 | Event-driven notifications | ✅ Complete | Critical |
+| 7.11 | Notification scheduling | ✅ Complete | Medium |
+| 7.12 | Retry mechanism | ✅ Complete | Medium |
+| 7.13 | Delivery status tracking | ✅ Complete | Low |
+| 7.14 | Notification preferences | ✅ Complete | Medium |
 | 7.15 | Rate limiting | ⏳ Pending | Medium |
 
-**Status**: 30% Complete (3/15)
+**Status**: 93% Complete (14/15)
 
 ---
 
@@ -300,3 +300,6 @@
 **Updated**: Daily
 **Next Review**: Weekly
 **Owner**: Tech Lead
+> Audit note (2026-04-16): for the latest code-backed status, read `project-documentation/13-CURRENT-IMPLEMENTATION-STATUS.md` first. Some items below were written as roadmap assumptions and may be ahead of the actual implementation.
+
+

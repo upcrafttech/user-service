@@ -383,3 +383,68 @@ See: README.md - "📊 FEATURE COMPLETION CHECKLIST"
 **Document Created**: April 10, 2026
 **Next Review**: After Phase 2 completion (Week 4)
 **Status**: ✅ Ready for Implementation
+# Update - April 16, 2026
+
+## What was completed
+
+- Implemented the task-service core domain:
+  - `Task`, `Subtask`, and `TimeLog` entities
+  - repositories for tasks, subtasks, and time logs
+  - service-layer CRUD, approval, subtask, and timelog logic
+  - Liquibase changelogs for task tables
+  - real controller wiring for task CRUD, subtasks, timelogs, and approvals
+- Added a code-backed implementation audit at:
+  - `project-documentation/13-CURRENT-IMPLEMENTATION-STATUS.md`
+
+## Build fixes made during implementation
+
+- Upgraded Lombok in the parent POM for Java 21 compatibility.
+- Fixed constructor wiring in `common-dto` service clients so they correctly extend `BaseServiceClient`.
+- Updated service POMs to use `com.mysql:mysql-connector-j`.
+
+## Verification
+
+- Verified successfully with:
+  - `mvn "-Dmaven.repo.local=.m2-local" -pl task-service -am test`
+- Result:
+  - `BUILD SUCCESS`
+
+## Update - April 16, 2026 (User Service dependency build fix)
+
+### What was fixed
+
+- Fixed local Maven dependency resolution for `user-service` when building it standalone.
+- Root cause: the parent `pom.xml` applied `spring-boot-maven-plugin` to *all* modules, which prevented library modules like `common-dto` and `keycloak-provider` from being installed cleanly (they are not runnable Spring Boot apps).
+
+### Changes made
+
+- Moved `spring-boot-maven-plugin` configuration in the parent `pom.xml` to `pluginManagement` so it is only applied in modules that explicitly declare the plugin (the service apps), not library modules.
+- Installed `common-dto` and `keycloak-provider` into the workspace-local Maven repository (`.m2-repo2`) so `user-service` can resolve them without trying Maven Central.
+
+### Verification
+
+- Verified successfully with:
+  - `mvn -pl common-dto,keycloak-provider install`
+  - `mvn -pl user-service -am test`
+- Result:
+  - `BUILD SUCCESS`
+
+### Follow-up fixes (same day)
+
+- Centralized internal module versions in the parent POM via `dependencyManagement` and removed per-service hardcoded versions for `common-dto` / `keycloak-provider`.
+- Fixed `employee-service` compilation by migrating `javax.persistence.*` imports to `jakarta.persistence.*` (Spring Boot 3).
+- Verified standalone builds with `mvn test` in: `auth-service`, `user-service`, `employee-service`, `task-service`, `payroll-service`, `notification-service`.
+
+## Update - May 10, 2026
+
+### What was completed
+
+- Implemented remaining code-level backend pending features:
+  - **Caching:** Added Spring Boot Data Redis integration in `common-dto` with a `RedisCacheConfig` and `CacheHelper` utility for standardized use across microservices.
+  - **Security:** Fully implemented OAuth2 Resource Server and Keycloak integration across all microservices (User, Employee, Task, Payroll, Notification). Extracted `KeycloakRoleConverter` into the shared `keycloak-provider`.
+  - **CI/CD:** Created a comprehensive GitHub Actions workflow (`.github/workflows/ci.yml`) for building, testing, Dockerizing, and deploying to Kubernetes.
+- Updated project documentation (`README.md`, `DEVELOPMENT_CHECKLIST.md`, and `13-CURRENT-IMPLEMENTATION-STATUS.md`) to correctly indicate 100% completion for Core Services, Infrastructure, and Security.
+
+### Current Status
+- Backend code development is fully complete.
+- Remaining tasks are limited to frontend (HRMS dashboard) and operational steps (real Twilio approval, production Kubernetes provisioning).

@@ -3,7 +3,7 @@ package com.upcraft.employee.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -31,6 +31,12 @@ public class Employee {
     @Column
     private String department;
 
+    @Column(name = "department_id", columnDefinition = "VARCHAR(36)")
+    private UUID departmentId;
+
+    @Column(name = "manager_id", columnDefinition = "VARCHAR(36)")
+    private UUID managerId;
+
     @Column
     private String designation;
 
@@ -45,6 +51,9 @@ public class Employee {
 
     @Column
     private Long salary;
+
+    @Column
+    private String status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

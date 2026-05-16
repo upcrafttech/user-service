@@ -31,6 +31,12 @@ public class EmployeeDTO {
     @Schema(description = "Department", example = "Engineering")
     private String department;
 
+    @Schema(description = "Department ID", example = "550e8400-e29b-41d4-a716-446655440010")
+    private UUID departmentId;
+
+    @Schema(description = "Manager ID", example = "550e8400-e29b-41d4-a716-446655440011")
+    private UUID managerId;
+
     @Schema(description = "Designation", example = "Senior Developer")
     private String designation;
 
@@ -45,6 +51,9 @@ public class EmployeeDTO {
 
     @Schema(description = "Monthly Salary in cents", example = "500000")
     private Long salary;
+
+    @Schema(description = "Employee Status", example = "ACTIVE")
+    private String status;
 
     @Schema(description = "Creation timestamp")
     private LocalDateTime createdAt;

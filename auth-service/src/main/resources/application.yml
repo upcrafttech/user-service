@@ -1,6 +1,12 @@
 spring:
   application:
     name: auth-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.server-url}/realms/${keycloak.realm}
+          jwk-set-uri: ${keycloak.server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
   datasource:
@@ -34,3 +40,24 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     enabled: true
+
+auth:
+  require-https: false
+  policy:
+    access-token-ttl-seconds: 3600
+    refresh-token-ttl-seconds: 1800
+    idle-session-timeout-seconds: 1800
+    max-concurrent-sessions-per-user: 3
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+    allowed-methods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+    allowed-headers:
+      - "*"
+    allow-credentials: true
